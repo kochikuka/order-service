@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+
+    <view entity="bytesvc_Order" name="order-view">
+        <property name="viewable_id"/>
+        <property name="status"/>
+        <property name="in_date"/>
+        <property name="device_type"/>
+        <property name="vendor"/>
+        <property name="model"/>
+        <property name="serial_number"/>
+        <property name="acceptance_person"/>
+        <property name="repair_type"/>
+        <property name="service_person" view="_minimal"/>
+        <property name="outback_person" view="_minimal"/>
+    </view>
+    <view entity="sec$User" name="user-service-person-view" extends="_local">
+        <property name="group" view="_minimal"/>
+    </view>
+    <view entity="bytesvc_Order" name="order-full-edit-view" extends="_local">
+        <property name="service_person" view="_minimal"/>
+        <property name="outback_person" view="_minimal"/>
+        <property name="work" view="_minimal">
+            <property name="work_name"/>
+            <property name="service_person"/>
+            <property name="qty"/>
+            <property name="price"/>
+            <property name="total"/>
+        </property>
+        <property name="sparepart" view="_minimal">
+            <property name="spare_name"/>
+            <property name="qty"/>
+            <property name="price"/>
+            <property name="total"/>
+        </property>
+        <property name="event" view="_minimal">
+            <property name="description"/>
+            <property name="createTs"/>
+            <property name="createdBy"/>
+        </property>
+    </view>
+</views>

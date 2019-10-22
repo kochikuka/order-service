@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+
+    <menu id="application-bytesvc" insertBefore="reports">
+        <item screen="bytesvc_Order.browse"/>
+    </menu>
+    <menu id="bytesvc-references" insertBefore="reports">
+        <item screen="bytesvc_DeviceType.browse"/>
+        <item screen="bytesvc_Vendor.browse"/>
+        <item screen="bytesvc_CurrencyScreen"/>
+        <item screen="bytesvc_CurrencyRate.browse"/>
+    </menu>
+</menu-config>

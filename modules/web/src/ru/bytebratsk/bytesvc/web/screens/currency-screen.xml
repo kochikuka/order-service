@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://caption"
+        messagesPack="ru.bytebratsk.bytesvc.web.screens">
+    <layout>
+        <vbox spacing="true" margin="true">
+            <label id="dynamicLabelDate"/>
+            <hbox spacing="true" margin="true">
+                <label value="msg://LabelUSRate"/>
+                <label id="dynamicLabelUSRate"/>
+            </hbox>
+            <hbox spacing="true" margin="true">
+                <label value="msg://LabelEuroRate"/>
+                <label id="dynamicLabelEuroRate"/>
+            </hbox>
+        </vbox>
+    </layout>
+</window>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd" caption="msg://editorCaption"
+        focusComponent="formWithNoScroll" messagesPack="ru.bytebratsk.bytesvc.web.order">
+    <data>
+        <instance id="orderDc" class="ru.bytebratsk.bytesvc.entity.Order" view="order-full-edit-view">
+            <loader/>
+            <collection id="orderWorksDc" property="work"/>
+            <collection id="orderEventsDc" property="event"/>
+            <collection id="orderSparesDc" property="sparepart"/>
+        </instance>
+        <collection id="userDc" class="com.haulmont.cuba.security.entity.User" view="user-service-person-view">
+            <loader>
+                <query>
+                    <![CDATA[select e from sec$User e where e.group.name = 'Сервисные инженеры' order by e.name]]></query>
+            </loader>
+        </collection>
+        <collection id="deviceTypesDc" class="ru.bytebratsk.bytesvc.entity.DeviceType" view="_local">
+            <loader id="deviceTypesLoader">
+                <query><![CDATA[select e from bytesvc_DeviceType e]]></query>
+            </loader>
+        </collection>
+        <collection id="vendorsDc" class="ru.bytebratsk.bytesvc.entity.Vendor" view="_local">
+            <loader id="vendorsLoader">
+                <query><![CDATA[select e from bytesvc_Vendor e]]></query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600" width="800"/>
+    <layout expand="scrollBox" spacing="true">
+        <buttonsPanel>
+            <button id="buttonGenerateAcceptanceAct" caption="msg://AcceptanceAct"
+                    invoke="onButtonGenerateAcceptanceActClick"/>
+            <button id="buttonGenerateOutbackAct" caption="msg://OutbackAct" invoke="onButtonGenerateOutbackActClick"/>
+            <button id="buttonReportAccept" caption="msg://ReportAcceptanceAct"/>
+        </buttonsPanel>
+        <form id="formWithNoScroll" dataContainer="orderDc">
+            <column>
+                <textField id="viewable_idField" property="viewable_id"/>
+                <lookupField id="repair_typeField" property="repair_type"/>
+                <lookupField id="servicePersonLookupField" property="service_person" caption="msg://ServicePerson"
+                             captionProperty="name" optionsContainer="userDc"/>
+            </column>
+            <column>
+                <dateField id="in_dateField" property="in_date"/>
+                <textField id="acceptance_personField" property="acceptance_person"/>
+            </column>
+            <column>
+                <lookupField id="statusField" property="status"/>
+                <lookupField id="outbackPersonLookupField" caption="msg://OutbackPerson" captionProperty="name"
+                             optionsContainer="userDc" property="outback_person"/>
+            </column>
+        </form>
+        <scrollBox id="scrollBox" spacing="true">
+            <hbox spacing="true" width="100%">
+                <groupBox id="groupBoxLeftSide" spacing="true">
+                    <groupBox id="groupBoxDeviceInfo" caption="msg://DeviceInfo" collapsable="true" showAsPanel="true"
+                              spacing="true">
+                        <form id="formDeviceInfo" dataContainer="orderDc" width="100%">
+                            <column width="100%">
+                                <suggestionField id="deviceTypeSuggestionField" caption="msg://DeviceType"
+                                                 property="device_type" dataContainer="orderDc" width="100%"
+                                                 minSearchStringLength="1"/>
+                                <suggestionField id="vendorSuggestionField" caption="msg://Vendor"
+                                                 property="vendor" dataContainer="orderDc" width="100%"
+                                                 minSearchStringLength="1"/>
+                                <textField property="model" width="100%"/>
+                                <textField property="serial_number" width="100%"/>
+                                <textArea property="in_set" width="100%"/>
+                                <textArea property="malfunction" width="100%"/>
+                                <textField property="agreed_value"/>
+                            </column>
+                        </form>
+                    </groupBox>
+                    <groupBox id="groupBoxCustomerInfo" caption="msg://CustomerInfo" collapsable="true" collapsed="true"
+                              showAsPanel="true" spacing="true">
+                        <form id="formCustomerInfo" dataContainer="orderDc" width="100%">
+                            <column>
+                                <textField property="customer_person" width="100%"/>
+                                <textField property="customer_orgname" width="100%"/>
+                                <textField property="customer_phone" width="100%"/>
+                                <textField property="customer_address" width="100%"/>
+                                <textField property="customer_email" width="100%"/>
+                            </column>
+                        </form>
+                    </groupBox>
+                    <groupBox id="groupBoxServiceInfo" caption="msg://ServiceInfo" collapsable="true" showAsPanel="true"
+                              spacing="true">
+                        <form id="formServiceInfo" dataContainer="orderDc" width="100%">
+                            <dateField property="ready_date"/>
+                            <dateField property="notify_date"/>
+                            <dateField property="out_date"/>
+                            <textField property="work_value"/>
+                            <textField property="sparepart_value"/>
+                            <textField property="bill_id"/>
+                            <textArea caption="msg://InternalRemark" property="internal_remark" width="100%"/>
+                            <textArea property="remark" width="100%"/>
+                        </form>
+                    </groupBox>
+                </groupBox>
+                <groupBox id="groupBoxRightSide" spacing="true">
+                    <groupBox id="groupBoxOrderEvent" caption="msg://Events" collapsable="true" collapsed="true"
+                              showAsPanel="true" spacing="true">
+                        <table id="tableOrderEvent" dataContainer="orderEventsDc" height="400px" width="100%">
+                            <actions>
+                                <action id="createEvent" caption="msg://CreateEvent" type="create"/>
+                                <action id="editEvent" caption="msg://EditEvent" type="edit"/>
+                                <action id="removeEvent" caption="msg://RemoveEvent" type="remove"/>
+                            </actions>
+                            <columns>
+                                <column id="createTs"/>
+                                <column id="description"/>
+                            </columns>
+                            <buttonsPanel id="buttonPanelOrderEvent">
+                                <button id="buttonOrderEventCreate" action="tableOrderEvent.createEvent"
+                                        caption="msg://CreateEvent"/>
+                                <button id="buttonOrderEventEdit" action="tableOrderEvent.editEvent"
+                                        caption="msg://EditEvent"/>
+                                <button id="buttonOrderEventRemove" action="tableOrderEvent.removeEvent"
+                                        caption="msg://RemoveEvent"/>
+                            </buttonsPanel>
+                        </table>
+                    </groupBox>
+                    <groupBox id="groupBoxOrderWork" caption="msg://Works" collapsable="true" showAsPanel="true"
+                              spacing="true">
+                        <table id="tableOrderWork" dataContainer="orderWorksDc" height="300px" multiLineCells="true"
+                               width="100%">
+                            <actions>
+                                <action id="createWork" caption="msg://CreateWork" type="create"/>
+                                <action id="editWork" caption="msg://EditWork" type="edit"/>
+                                <action id="removeWork" caption="msg://RemoveWork" type="remove"/>
+                            </actions>
+                            <columns>
+                                <column id="work_name"/>
+                                <column id="service_person"/>
+                                <column id="qty"/>
+                                <column id="price"/>
+                                <column id="total"/>
+                            </columns>
+                            <buttonsPanel id="buttonPanelOrderWork">
+                                <button id="buttonOrderWorkCreate" action="tableOrderWork.createWork"
+                                        caption="msg://CreateWork"/>
+                                <button id="buttonOrderWorkEdit" action="tableOrderWork.editWork"
+                                        caption="msg://EditWork"/>
+                                <button id="buttonOrderWorkRemove" action="tableOrderWork.removeWork"
+                                        caption="msg://RemoveWork"/>
+                            </buttonsPanel>
+                        </table>
+                    </groupBox>
+                    <groupBox id="groupBoxOrderSpare" caption="msg://Spareparts" collapsable="true" showAsPanel="true"
+                              spacing="true">
+                        <table id="tableOrderSpare" dataContainer="orderSparesDc" height="300px" width="100%">
+                            <actions>
+                                <action id="createSpare" caption="msg://CreateSpare" type="create"/>
+                                <action id="editSpare" caption="msg://EditSpare" type="edit"/>
+                                <action id="removeSpare" caption="msg://RemoveSpare" type="remove"/>
+                            </actions>
+                            <columns>
+                                <column id="spare_name"/>
+                                <column id="qty"/>
+                                <column id="price"/>
+                                <column id="total"/>
+                            </columns>
+                            <buttonsPanel id="buttonPanelOrderSpare">
+                                <button id="buttonOrderSpareCreate" action="tableOrderSpare.createSpare"
+                                        caption="msg://CreateSpare"/>
+                                <button id="buttonOrderSpareEdit" action="tableOrderSpare.editSpare"
+                                        caption="msg://EditSpare"/>
+                                <button id="buttonOrderSpareRemove" action="tableOrderSpare.removeSpare"
+                                        caption="msg://RemoveSpare"/>
+                            </buttonsPanel>
+                        </table>
+                    </groupBox>
+                </groupBox>
+            </hbox>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

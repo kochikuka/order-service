@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="ru.bytebratsk.bytesvc.web.orderwork">
+    <data>
+        <instance id="orderWorkDc"
+                    class="ru.bytebratsk.bytesvc.entity.OrderWork"
+                    view="_local">
+            <loader/>
+        </instance>
+        
+    </data>
+    
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+    
+        
+
+<form id="form" dataContainer="orderWorkDc">
+<column width="250px">
+	
+	<textArea id="work_nameField" property="work_name" rows="5"/>
+	
+	<textField id="service_personField" property="service_person"/>
+	
+	<textField id="qtyField" property="qty"/>
+	
+	<textField id="priceField" property="price"/>
+	
+	<textField id="totalField" property="total"/>
+	
+</column>
+</form>
+
+        
+        
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

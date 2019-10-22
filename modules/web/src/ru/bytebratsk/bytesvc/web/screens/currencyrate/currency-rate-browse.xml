@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://browseCaption"
+        focusComponent="currencyRatesTable"
+        messagesPack="ru.bytebratsk.bytesvc.web.screens.currencyrate">
+    <data readOnly="true">
+        <collection id="currencyRatesDc"
+                    class="ru.bytebratsk.bytesvc.entity.CurrencyRate"
+                    view="_local">
+            <loader id="currencyRatesDl">
+                <query>
+                    <![CDATA[select e from bytesvc_CurrencyRate e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="currencyRatesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="currencyRatesTable"
+                dataLoader="currencyRatesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="currencyRatesTable"
+                    width="100%"
+                    dataContainer="currencyRatesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="rate_date"/>
+                <column id="usdollar_value"/>
+                <column id="euro_value"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="currencyRatesTable.create"/>
+                <button id="editBtn" action="currencyRatesTable.edit"/>
+                <button id="removeBtn" action="currencyRatesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

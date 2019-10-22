@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd" caption="msg://editorCaption" focusComponent="form"
+        messagesPack="ru.bytebratsk.bytesvc.web.orderspare">
+    <data>
+        <instance id="orderSpareDc" class="ru.bytebratsk.bytesvc.entity.OrderSpare" view="_local">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="600" width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="orderSpareDc">
+            <column width="250px">
+                <textArea id="spare_nameField" property="spare_name"/>
+                <textField id="qtyField" property="qty"/>
+                <textField id="priceField" property="price"/>
+                <textField id="totalField" property="total"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

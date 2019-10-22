@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="byte-service" transaction-type="RESOURCE_LOCAL">
+
+        <class>ru.bytebratsk.bytesvc.entity.OrderEvent</class>
+        <class>ru.bytebratsk.bytesvc.entity.OrderWork</class>
+        <class>ru.bytebratsk.bytesvc.entity.OrderSpare</class>
+        <class>ru.bytebratsk.bytesvc.entity.Order</class>
+        <class>ru.bytebratsk.bytesvc.entity.DeviceType</class>
+        <class>ru.bytebratsk.bytesvc.entity.Vendor</class>
+        <class>ru.bytebratsk.bytesvc.entity.CurrencyRate</class>
+    </persistence-unit>
+</persistence>

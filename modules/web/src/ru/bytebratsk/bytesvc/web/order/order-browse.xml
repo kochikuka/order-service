@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd" caption="msg://browseCaption"
+        focusComponent="ordersTable" messagesPack="ru.bytebratsk.bytesvc.web.order">
+    <data readOnly="true">
+        <collection id="ordersDc" class="ru.bytebratsk.bytesvc.entity.Order" view="order-view">
+            <loader id="ordersDl">
+                <query><![CDATA[select e from bytesvc_Order e ORDER BY e.viewable_id DESC]]></query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600" width="800"/>
+    <layout expand="ordersTable" spacing="true">
+        <filter id="filter" applyTo="ordersTable" dataLoader="ordersDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="ordersTable" width="100%" dataContainer="ordersDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+                <action id="refresh" type="refresh"/>
+                <action id="run_report"/>
+            </actions>
+            <columns>
+                <column id="viewable_id"/>
+                <column id="status"/>
+                <column id="in_date"/>
+                <column id="repair_type"/>
+                <column id="device_type"/>
+                <column id="vendor"/>
+                <column id="model"/>
+                <column id="serial_number"/>
+                <column id="service_person"/>
+                <column id="acceptance_person"/>
+                <column id="outback_person"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel" alwaysVisible="true">
+                <button id="createBtn" action="ordersTable.create"/>
+                <button id="editBtn" action="ordersTable.edit"/>
+                <button id="removeBtn" action="ordersTable.remove"/>
+                <button id="refreshBtn" action="ordersTable.refresh"/>
+                <button id="buttonAcceptanceAct" caption="msg://AcceptanceAct" invoke="onButtonAcceptanceActClick"/>
+                <button id="buttonOutbackAct" caption="msg://OutbackAct" invoke="onButtonOutbackActClick"/>
+                <button id="buttonRunReport" action="ordersTable.run_report" caption="msg://RunReport"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

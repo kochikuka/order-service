@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd" caption="msg://editorCaption" focusComponent="form"
+        messagesPack="ru.bytebratsk.bytesvc.web.orderevent">
+    <data>
+        <instance id="orderEventDc" class="ru.bytebratsk.bytesvc.entity.OrderEvent" view="_local">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="600" width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="orderEventDc">
+            <column width="250px">
+                <textArea id="descriptionField" property="description"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

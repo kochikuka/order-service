@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd" caption="msg://browseCaption"
+        focusComponent="deviceTypesTable" messagesPack="ru.bytebratsk.bytesvc.web.devicetype">
+    <data readOnly="true">
+        <collection id="deviceTypesDc" class="ru.bytebratsk.bytesvc.entity.DeviceType" view="_local">
+            <loader id="deviceTypesDl">
+                <query><![CDATA[select e from bytesvc_DeviceType e order by e.name]]></query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600" width="800"/>
+    <layout expand="deviceTypesTable" spacing="true">
+        <filter id="filter" applyTo="deviceTypesTable" dataLoader="deviceTypesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="deviceTypesTable" width="100%" dataContainer="deviceTypesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel" alwaysVisible="true">
+                <button id="createBtn" action="deviceTypesTable.create"/>
+                <button id="editBtn" action="deviceTypesTable.edit"/>
+                <button id="removeBtn" action="deviceTypesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
